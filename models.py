@@ -121,17 +121,18 @@ treelevel_mapping = {
 }
 
 class USGrid100km(models.Model):
-    id = models.BigIntegerField(primary_key=True)
+    id_original = models.IntegerField(blank=True, null=True)
     xmini = models.FloatField()
     xmaxi = models.FloatField()
     ymini = models.FloatField()
     ymaxi = models.FloatField()
-    geom = models.PolygonField(srid=4326,db_index=True)
+    geom = models.MultiPolygonField(srid=4326,db_index=True)
+    
 
 # Auto-generated `LayerMapping` dictionary for USGrid100km model
 usgrid100km_mapping = {
-    'id' : 'ID',
-    'xmini' : 'XMINI',
+    'id_original' : 'ID',
+    'xmini' : 'XMIN',
     'xmaxi' : 'XMAX',
     'ymini' : 'YMIN',
     'ymaxi' : 'YMAX',
