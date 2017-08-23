@@ -14,7 +14,7 @@ load_shp_into_db.run()
 import os
 from django.contrib.gis.utils import LayerMapping
 from .models import Richness,richness_mapping,Spplist,spplist_mapping,TreeLevel,treelevel_mapping,USGrid100km,usgrid100km_mapping
-
+from .models import TreesPerYear, treesperyear_mapping, SppNProduct, sppnproduct_mapping,BiomassGroups,biomassgroups_mapping, dataframeRowToModel
 
 richness_shp = os.path.abspath(
     os.path.join("external_plugins/iDivSS2017_Group_Project_2/maps/FIA","FIA_Richness_19042017.shp"))
@@ -27,6 +27,16 @@ treelevel_shp = os.path.abspath(
 
 usgrid_shp = os.path.abspath(
     os.path.join("external_plugins/iDivSS2017_Group_Project_2/maps/Basemap/wgs84","USGrid1km.shp"))
+
+treesperyear_shp = os.path.abspath(
+    os.path.join("/RawDataCSV/FIA/newData","FIA_Trees_perYear_CLEAN.shp"))
+
+sppnprod_shp = os.path.abspath(
+    os.path.join("/RawDataCSV/FIA/newData","FIA_SppN_Productivity_CLEAN.shp"))
+
+biomassgroups_csv = os.path.abspath(
+    os.path.join("/RawDataCSV/FIA/newData","biomass.csv"))
+
 
 
 def run(verbose=True):
@@ -56,4 +66,24 @@ def run_mesh(verbose=True):
         )
     mesh.save(strict=True, verbose=verbose)
     
+def run_new_data(verbose=True):
+    spplist = LayerMapping(
+        SppNProduct, sppnprod_shp, sppnproduct_mapping,
+        transform=False,
+    )
+    spplist.save(strict=True, verbose=verbose)
+    
+    treelevel = LayerMapping(
+        TreesPerYear, treesperyear_shp ,treesperyear_mapping,
+        transform=False,
+    )
+    treelevel.save(strict=True, verbose=verbose)
+ 
+def run_biomassgroup(verbose=True):
+    import pandas as pd
+    data = pd.read_csv(biomassgroups_csv)
+    iterdat = data.iterrows()
+    objects = map(lambda row :  dataframeRowToModel(row), iterdat)
+    return objects
+
     
