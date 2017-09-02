@@ -16,26 +16,32 @@ from django.contrib.gis.utils import LayerMapping
 from .models import Richness,richness_mapping,Spplist,spplist_mapping,TreeLevel,treelevel_mapping,USGrid100km,usgrid100km_mapping
 from .models import TreesPerYear, treesperyear_mapping, SppNProduct, sppnproduct_mapping,BiomassGroups,biomassgroups_mapping, dataframeRowToModel
 
+
+
+old_maps ="external_plugins/iDivSS2017_Group_Project_2/maps/FIA"
+new_maps = "/RawDataCSV/FIA/newData"
+
+
 richness_shp = os.path.abspath(
-    os.path.join("external_plugins/iDivSS2017_Group_Project_2/maps/FIA","FIA_Richness_19042017.shp"))
+    os.path.join(old_maps,"FIA_Richness_19042017.shp"))
 
 spplist_shp = os.path.abspath(
-    os.path.join("external_plugins/iDivSS2017_Group_Project_2/maps/FIA","FIA_SPPLIST_18042017.shp"))
+    os.path.join(old_maps,"FIA_SPPLIST_18042017.shp"))
 
 treelevel_shp = os.path.abspath(
-    os.path.join("external_plugins/iDivSS2017_Group_Project_2/maps/FIA","FIA_Tree_Level.shp"))
+    os.path.join(old_maps,"FIA_Tree_Level.shp"))
 
 usgrid_shp = os.path.abspath(
     os.path.join("external_plugins/iDivSS2017_Group_Project_2/maps/Basemap/wgs84","USGrid1km.shp"))
 
 treesperyear_shp = os.path.abspath(
-    os.path.join("/RawDataCSV/FIA/newData","FIA_Trees_perYear_CLEAN.shp"))
+    os.path.join(new_maps,"FIA_Trees_perYear_CLEAN.shp"))
 
 sppnprod_shp = os.path.abspath(
-    os.path.join("/RawDataCSV/FIA/newData","FIA_SppN_Productivity_CLEAN.shp"))
+    os.path.join(new_maps,"FIA_SppN_Productivity_CLEAN.shp"))
 
 biomassgroups_csv = os.path.abspath(
-    os.path.join("/RawDataCSV/FIA/newData","biomass.csv"))
+    os.path.join(new_maps,"biomass.csv"))
 
 
 
