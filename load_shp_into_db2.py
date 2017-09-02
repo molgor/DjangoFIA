@@ -19,8 +19,8 @@ from .models import TreesPerYear, treesperyear_mapping, SppNProduct, sppnproduct
 
 
 old_maps ="external_plugins/iDivSS2017_Group_Project_2/maps/FIA"
-new_maps = "/inputs/inputs/newData/"
-base_map = "external_plugins/iDivStuff/maps/Basemap/wgs84"
+new_maps = "/inputs/FIA/newData"
+base_map = "/apps/external_plugins/iDivStuff/maps/Basemap/wgs84"
 
 richness_shp = os.path.abspath(
     os.path.join(old_maps,"FIA_Richness_19042017.shp"))
@@ -91,5 +91,3 @@ def run_biomassgroup(verbose=True):
     iterdat = data.iterrows()
     objects = map(lambda row :  dataframeRowToModel(row), iterdat)
     return objects
-
-    
