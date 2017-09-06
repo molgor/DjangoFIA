@@ -130,7 +130,7 @@ class USGrid100km(models.Model):
     xmaxi = models.FloatField(db_column="__xmax")
     ymini = models.FloatField(db_column="ymin")
     ymaxi = models.FloatField(db_column="ymax")
-    geom = models.MultiPolygonField(srid=4326,db_index=True)
+    geom = models.MultiPolygonField(srid=4326,db_index=True,geography=True)
     class Meta:
         managed = False
         
@@ -214,6 +214,7 @@ class TreesPerYear(models.Model):
     ba_m2 = models.FloatField(db_index=True)
     biomass_kg = models.FloatField(db_index=True)
     geom = models.PointField(srid=4326,db_index=True)
+    alberts102003 = models.PointField(srid=102003,db_index=True)
 
 # Auto-generated `LayerMapping` dictionary for TreesPerYear model
 treesperyear_mapping = {
@@ -311,7 +312,6 @@ def dataframeRowToModel(pandas_row):
     i,data = pandas_row
     model_i = BiomassGroups.objects.create(**dict(data))
     return model_i
-
 
 
 
