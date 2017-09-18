@@ -32,6 +32,7 @@ def ObtainRandomUniformCellSampling(grid_model,sample_size=100):
     logger.info("GridCells Sample obtained ")
     return sample_cells
 
+
 def TreesOnCellsSelection(list_of_sampled_cells,filter_empty=True):
     """
     Returns a QuerySet of type: TreeLevel corresponding to the objects that intersect to the geometry attribute of Cell
@@ -242,3 +243,12 @@ def sampleRandomBufferScenario(buffer_start_km,buffer_end_km,number_of_points=10
 
 
     
+def getSummaryStatistics(list_samples):
+    getSummaryStats = lambda df : [df.ba_m2.describe()['mean'],df.ba_m2.describe()['std'],df.biomass_kg.describe()['mean'],df.biomass_kg.describe()['std']]
+    samps = map(getSummaryStats,list_samples)
+    samples = pd.DataFrame(samps)
+    richness = pd.DataFrame(map(lambda df : len(df.spcd.unique()),list_samples))
+    samples = pd.concat([richness,samples],axis=1)
+    samples.columns = ["Sp_Richness","Ba_m2-mean","Ba_m2_std","Biomass-mean","Biomass-std"]
+    return samples
+

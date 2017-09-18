@@ -170,6 +170,31 @@ class SppNProduct(models.Model):
     mai_biomas = models.FloatField()
     geom = models.PointField(srid=4326,db_index=True)
 
+
+    def __unicode__(self):
+            """
+            ..
+            String representation of Occurrence
+            Returns
+            -------
+            info : string
+                Name
+            """
+            return u'<SppNProduct: %s  : %s , %s , %s , %s >' %(self.pk,self.sppn,self.plotidn,self.mai_basala,self.mai_biomas) #,self.geom)
+    
+    def __repr__(self):
+            """
+            ..
+            String representation of Occurrence
+            Returns
+            -------
+            info : string
+                Name
+            """
+            return u'<SppNProduct: %s, SppN  : %s , PlotIdn: %s , mBas: %s ,mBiomas: %s >' %(self.pk,self.sppn,self.plotidn,self.mai_basala,self.mai_biomas) #,self.geom)
+    
+          
+
 # Auto-generated `LayerMapping` dictionary for SppNProduct model
 sppnproduct_mapping = {
     'statecd' : 'STATECD',
@@ -215,6 +240,22 @@ class TreesPerYear(models.Model):
     biomass_kg = models.FloatField(db_index=True)
     geom = models.PointField(srid=4326,db_index=True)
     alberts102003 = models.PointField(srid=102003,db_index=True)
+
+
+
+
+
+    def __repr__(self):
+        """
+        ..
+        String representation of Tree
+        Returns
+        -------
+        info : string
+        Name
+        """
+        return u'<Tree_yr: %s, Name  : %s , PlotIdn: %s , SubPlot: %s , Dia : %s, ht_m: %s, ba_m2: %s,biomass_kg : %s >' %(self.pk,self.accepted_n,self.plotidn,self.subp,self.dia,self.ht_m,self.ba_m2,self.biomass_kg) #,self.geom)
+    
 
 # Auto-generated `LayerMapping` dictionary for TreesPerYear model
 treesperyear_mapping = {
