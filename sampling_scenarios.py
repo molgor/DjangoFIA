@@ -25,3 +25,19 @@ def ObtainRandomUniformCellSampling(grid_model,sample_size=100):
     sample_ids = f.rvs(sample_size)
     sample_cells = grid_model.objects.filter(pk__in=sample_ids)
     return sample_cells
+
+
+def getSppFromCells(list_cells):
+    """
+    Performs a normal spatial filter using the relation IS WITHIN
+    """
+    spps = map(lambda cell : SppNProduct.objects.filter(geom__intersects=cell.geom),list_cells)
+    return spps
+
+
+def getTreesFromCells(list_cells):
+    """
+    Performs a normal spatial filter using the relation IS WITHIN
+    """
+    trees = map(lambda cell : TreesPerYear.objects.filter(geom__intersects=cell.geom),list_cells)
+    return trees
