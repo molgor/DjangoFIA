@@ -124,13 +124,18 @@ treelevel_mapping = {
 
 
 class USGrid100km(models.Model):
-    id_original = models.IntegerField(blank=True, null=True)
-    xmini = models.FloatField()
-    xmaxi = models.FloatField()
-    ymini = models.FloatField()
-    ymaxi = models.FloatField()
-    geom = models.MultiPolygonField(srid=4326,db_index=True)
-    
+    id = models.AutoField(primary_key=True, db_column="gid")
+    id_original = models.IntegerField(blank=True, db_column="id")
+    xmini = models.FloatField(db_column="__xmin")
+    xmaxi = models.FloatField(db_column="__xmax")
+    ymini = models.FloatField(db_column="ymin")
+    ymaxi = models.FloatField(db_column="ymax")
+    geom = models.MultiPolygonField(srid=4326,db_index=True,geography=True)
+    class Meta:
+        managed = False
+        
+        # remote server table name
+        db_table = 'mesh\".\"us100km'    
 
 # Auto-generated `LayerMapping` dictionary for USGrid100km model
 usgrid100km_mapping = {
@@ -233,7 +238,11 @@ class TreesPerYear(models.Model):
     ht_m = models.CharField(max_length=254,db_index=True)
     ba_m2 = models.FloatField(db_index=True)
     biomass_kg = models.FloatField(db_index=True)
-    geom = models.PointField(srid=4326,db_index=True,geography=True)
+    geom = models.PointField(srid=4326,db_index=True)
+    alberts102003 = models.PointField(srid=102003,db_index=True)
+
+
+
 
 
     def __repr__(self):
@@ -344,7 +353,6 @@ def dataframeRowToModel(pandas_row):
     i,data = pandas_row
     model_i = BiomassGroups.objects.create(**dict(data))
     return model_i
-
 
 
 
